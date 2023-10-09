@@ -1,5 +1,17 @@
-version: '3'
-
 services:
   nginx:
+    contaier_name: nginx
+    image: nginx
+    ports:
+      - "443:443"
+    restart: always
+    env_file: .env
+    volumes:
+      - wp_website:/var/www/html
 
+volumes:
+  #wp_data_base:
+  #name: wp_data_base
+
+  wp_website:
+    name: wp_website

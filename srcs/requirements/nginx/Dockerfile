@@ -1,4 +1,12 @@
 FROM debian:11.7
 
-RUN apt-get update && apt-get install -y nginx
+EXPOSE 443
 
+RUN apt-get update && apt-get install -y nginx openssl
+
+COPY conf/default.com /etc/nginx/sites-enabled/
+COPY --chmod=755 tools/nginx.sh /var/www/
+
+ENTRYPOINT [ "/var/www/nginx.sh" ]
+
+CMD [ "nginx", "-g", "daemon off;" ]
