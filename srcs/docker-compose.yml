@@ -2,16 +2,33 @@ services:
   nginx:
     contaier_name: nginx
     image: nginx
+    build: ./requirements/nginx
     ports:
       - "443:443"
     restart: always
-    env_file: .env
     volumes:
       - wp_website:/var/www/html
+    networks:
+      - eralnet
 
 volumes:
-  #wp_data_base:
-  #name: wp_data_base
+  wp_data_base:
+    name: wp_data_base
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/eralonso/data/wp_data_base"
+      o: bind
 
   wp_website:
     name: wp_website
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/eralonso/data/wp_website"
+      o: bind
+
+networks:
+  eralnet:
+    name: eralnet
+    driver: bridge

@@ -4,7 +4,7 @@ EXPOSE 443
 
 RUN apt-get update && apt-get install -y nginx openssl
 
-COPY conf/default.com /etc/nginx/sites-enabled/
+COPY conf/nginx.conf /etc/nginx/
 COPY --chmod=755 tools/nginx.sh /var/www/
 
 ENTRYPOINT [ "/var/www/nginx.sh" ]
