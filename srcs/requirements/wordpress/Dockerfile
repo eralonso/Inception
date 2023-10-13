@@ -16,4 +16,6 @@ COPY conf/wordpress_pool.conf /etc/php/7.3/fpm/pool.d/
 
 COPY --chmod=755 tools/wp.sh /usr/local/bin/wp.sh
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/
+
+ENTRYPOINT [ "/usr/local/bin/wp.sh" ]
