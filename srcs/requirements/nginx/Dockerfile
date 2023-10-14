@@ -2,7 +2,9 @@ FROM debian:11.7
 
 EXPOSE 443
 
-RUN apt-get update && apt-get install -y nginx openssl
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl
 
 COPY conf/default /etc/nginx/sites-enabled/
 COPY --chmod=755 tools/nginx.sh /var/www/nginx.sh

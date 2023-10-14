@@ -2,7 +2,7 @@ FROM debian:11.7
 
 EXPOSE 9000
 
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && apt-get install -y \
 	curl \
 	mariadb-client \
 	php7.3-fpm \
@@ -14,8 +14,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 COPY conf/wordpress_pool.conf /etc/php/7.3/fpm/pool.d/
 
-COPY --chmod=755 tools/wp.sh /usr/local/bin/wp.sh
+COPY --chmod=755 tools/wordpress.sh /usr/local/bin/wordpress.sh
 
 WORKDIR /var/www/html/
 
-ENTRYPOINT [ "/usr/local/bin/wp.sh" ]
+ENTRYPOINT [ "/usr/local/bin/wordpress.sh" ]
