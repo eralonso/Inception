@@ -1,59 +1,60 @@
 services:
-        nginx:
-                contaier_name: nginx
-                image: nginx
-                build: ./requirements/nginx
-                ports:
-                        - "443:443"
-                restart: always
-                volumes:
-                        - wp_website:/var/www/html
-                networks:
-                        - eralnet
-
-        mariadb:
-                contaier_name: mariadb
-                image: mariadb
-                build: ./requirements/mariadb
-                restart: always
-                env_file:
-                        - .env
-                volumes:
-                        - wp_data_base:/var/lib/mysql
-                networks:
-                        - eralnet
-
-        wordpress:
-                contaier_name: wordpress
-                image: wordpress
-                build: ./requirements/wordpress
-                restart: always
-                env_file: .env
-                depends_on:
-                        - mariadb
-                volumes:
-                        - wp_website:/var/www/html
-                networks:
-                        - eralnet
+  nginx:
+    container_name: nginx
+    #image: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    restart: always
+    volumes:
+      - wp_website:/var/www/html
+    networks:
+      - eralnet
+  
+  mariadb:
+    container_name: mariadb
+    #image: mariadb
+    build: ./requirements/mariadb
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wp_data_base:/var/lib/mysql
+    networks:
+      - eralnet
+  
+  wordpress:
+    container_name: wordpress
+    #image: wordpress
+    build: ./requirements/wordpress
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wp_website:/var/www/html
+    networks:
+      - eralnet
 
 volumes:
-        wp_data_base:
-                name: wp_data_base
-                driver: local
-                driver_opts:
-                        type: none
-                        device: "/home/eralonso/data/wordpressdb"
-                        o: bind
-
-        wp_website:
-                name: wp_website
-                driver: local
-                driver_opts:
-                        type: none
-                        device: "/home/eralonso/data/wordpress_cont"
-                        o: bind
+  wp_data_base:
+    name: wp_data_base
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/eralonso/data/wordpress_db"
+      o: bind
+  
+  wp_website:
+    name: wp_website
+    driver: local
+    driver_opts:
+      type: none
+      device: "/home/eralonso/data/wordpress_cont"
+      o: bind
 
 networks:
-        eralnet:
-                name: eralnet
-                driver: bridge
+  eralnet:
+    name: eralnet
+    driver: bridge
