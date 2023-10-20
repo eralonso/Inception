@@ -1,6 +1,6 @@
 #! /bin/bash
 
-service mysql start
+service mariadb start
 
 if [ ! -d /var/lib/mysql/$DATA_BASE_NAME ]; then
 	mysql -u $MARIADB_ROOT_USER -p$MARIADB_ROOT_PASSWORD -e "CREATE DATABASE $DATA_BASE_NAME;"
